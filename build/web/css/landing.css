@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --accent-color: #6366f1;
+    --text-glow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animated Spheres */
+.sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: -1;
+    animation: move 20s infinite alternate ease-in-out;
+}
+
+.sphere-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(99, 102, 241, 0.4);
+    top: -100px;
+    left: -100px;
+}
+
+.sphere-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(168, 85, 247, 0.3);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+.sphere-3 {
+    width: 250px;
+    height: 250px;
+    background: rgba(236, 72, 153, 0.2);
+    top: 50%;
+    left: 70%;
+    animation-delay: -10s;
+}
+
+@keyframes move {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(100px, 50px) scale(1.1); }
+}
+
+/* Glass Card */
+.welcome-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 60px 40px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-card h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+}
+
+.welcome-card p {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.cta-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-landing {
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.btn-primary-landing {
+    background: #6366f1;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary-landing:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary-landing {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary-landing:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Floating Animation for logo/text */
+.floating {
+    animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+    .welcome-card { padding: 40px 20px; }
+    .welcome-card h1 { font-size: 2.5rem; }
+    .cta-group { flex-direction: column; }
+}
