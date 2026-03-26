@@ -6,18 +6,16 @@ import java.sql.DriverManager;
 public class DBContext {
 
     // UPDATE THESE CREDENTIALS FOR YOUR LOCAL SQL SERVER
-    private final String serverName = "localhost";
-    private final String dbName = "TimeBankDB";
-    private final String portNumber = "1433";
-    private final String instance = ""; // Leave blank if not using named instance
-    private final String userID = "sa"; 
-    private final String password = "123";
+    // Railway/Production environment variables
+    private final String serverName = System.getenv("MSSQL_SERVER") != null ? System.getenv("MSSQL_SERVER") : "localhost";
+    private final String dbName = System.getenv("MSSQL_DB") != null ? System.getenv("MSSQL_DB") : "TimeBankDB";
+    private final String portNumber = System.getenv("MSSQL_TCP_PORT") != null ? System.getenv("MSSQL_TCP_PORT") : "1433";
+    private final String userID = System.getenv("MSSQL_USER") != null ? System.getenv("MSSQL_USER") : "sa"; 
+    private final String password = System.getenv("MSSQL_SA_PASSWORD") != null ? System.getenv("MSSQL_SA_PASSWORD") : "123";
 
     public Connection getConnection() throws Exception {
-        String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;
-        if (instance == null || instance.trim().isEmpty()) {
-            url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName + ";encrypt=false";
-        }
+        // Use encrypt=false to avoid SSL issues on some cloud providers unless configured
+        String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName + ";encrypt=false;trustServerCertificate=true";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(url, userID, password);
     }
